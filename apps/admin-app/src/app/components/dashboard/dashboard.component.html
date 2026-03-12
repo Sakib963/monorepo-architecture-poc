@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="header">
+    <h1>🛡️ Admin Portal</h1>
+    <button class="btn-danger" (click)="handleLogout()">Logout</button>
+  </div>
+
+  <!-- Admin Profile -->
+  <div class="card">
+    <h2>👤 Admin Profile</h2>
+    <div *ngIf="currentUser" style="margin-top: 1rem;">
+      <p><strong>Username:</strong> {{ currentUser.username }}</p>
+      <p><strong>Role:</strong> <span [className]="getRoleBadgeClass(currentUser.role)">{{ currentUser.role }}</span></p>
+      <p><strong>User ID:</strong> {{ currentUser.userId }}</p>
+    </div>
+  </div>
+
+  <!-- System Statistics -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>Total Users</h3>
+      <div class="value">{{ stats.totalUsers }}</div>
+    </div>
+    <div class="stat-card">
+      <h3>Active Users</h3>
+      <div class="value">{{ stats.activeUsers }}</div>
+    </div>
+    <div class="stat-card">
+      <h3>Total Admins</h3>
+      <div class="value">{{ stats.totalAdmins }}</div>
+    </div>
+    <div class="stat-card">
+      <h3>System Uptime</h3>
+      <div class="value">{{ stats.systemUptime }}</div>
+    </div>
+  </div>
+
+  <!-- User Management Table -->
+  <div class="card">
+    <h2>👥 User Management</h2>
+    <table style="margin-top: 1rem;">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Last Activity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td><span [className]="getRoleBadgeClass(user.role)">{{ user.role }}</span></td>
+          <td>{{ user.lastActivity }}</td>
+          <td>
+            <button class="btn-primary" style="font-size: 0.875rem; padding: 0.5rem 1rem;">
+              Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- System Information -->
+  <div class="card">
+    <h2>📊 Shared Package Demo</h2>
+    <p style="margin-top: 1rem; color: #4a5568;">
+      This Angular application successfully uses the following shared packages from the monorepo:
+    </p>
+    <ul style="margin-top: 1rem; margin-left: 2rem; color: #4a5568;">
+      <li><strong>@monorepo/types</strong> - Provides TypeScript interfaces (User, Role, etc.)</li>
+      <li><strong>@monorepo/auth-client</strong> - Handles authentication logic</li>
+    </ul>
+    <p style="margin-top: 1rem; color: #4a5568;">
+      This demonstrates the power of monorepo architecture where shared code is reused across different frameworks (React and Angular).
+    </p>
+  </div>
+</div>

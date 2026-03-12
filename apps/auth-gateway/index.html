@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auth Gateway - Login</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="login-container">
+        <div class="login-card">
+          <h1>🔐 Welcome</h1>
+          <p class="subtitle">Sign in to access your portal</p>
+          
+          <form id="login-form">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input 
+                type="text" 
+                id="username" 
+                name="username" 
+                placeholder="Enter your email"
+                required 
+                autocomplete="username"
+              />
+            </div>
+            
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                placeholder="Enter your password"
+                required 
+                autocomplete="current-password"
+              />
+            </div>
+            
+            <div id="error-message" class="error-message" style="display: none;"></div>
+            
+            <button type="submit" id="login-button" class="login-button">
+              Sign In
+            </button>
+          </form>
+          
+          <div class="test-credentials">
+            <p><strong>Test Credentials:</strong></p>
+            <p>👤 User: <code>user@example.com</code> / <code>user123</code></p>
+            <p>👨‍💼 Admin: <code>admin@example.com</code> / <code>admin123</code></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

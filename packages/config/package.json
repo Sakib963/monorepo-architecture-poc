@@ -1,0 +1,9 @@
+{
+  "name": "@monorepo/config",
+  "version": "1.0.0",
+  "description": "Shared tooling configuration",
+  "files": [
+    "tsconfig.json",
+    "eslint.js"
+  ]
+}
