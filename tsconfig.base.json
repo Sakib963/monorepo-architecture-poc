@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@poc/types": ["packages/types/src/index.ts"],
+      "@poc/validators": ["packages/validators/src/index.ts"],
+      "@poc/events": ["packages/events/src/index.ts"],
+      "@poc/feature-flags": ["packages/feature-flags/src/index.ts"],
+      "@poc/api-client": ["packages/api-client/src/index.ts"],
+      "@poc/ui-components": ["packages/ui-components/src/index.ts"],
+      "@poc/config": ["packages/config/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

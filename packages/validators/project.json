@@ -1,0 +1,22 @@
+{
+  "name": "@poc/validators",
+  "root": "packages/validators",
+  "sourceRoot": "packages/validators/src",
+  "projectType": "library",
+  "tags": ["type:package"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/validators",
+        "main": "packages/validators/src/index.ts",
+        "tsConfig": "packages/validators/tsconfig.json",
+        "assets": []
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["packages/validators/**/*.ts"] }
+    }
+  }
+}

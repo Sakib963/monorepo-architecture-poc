@@ -1,0 +1,29 @@
+{
+  "name": "@poc/api-gateway",
+  "root": "services/api-gateway",
+  "sourceRoot": "services/api-gateway/src",
+  "projectType": "application",
+  "tags": ["type:service"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/services/api-gateway",
+        "main": "services/api-gateway/src/main.ts",
+        "tsConfig": "services/api-gateway/tsconfig.json",
+        "assets": []
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ts-node-dev --respawn --transpile-only src/main.ts",
+        "cwd": "services/api-gateway"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["services/api-gateway/**/*.ts"] }
+    }
+  }
+}

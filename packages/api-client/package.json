@@ -1,0 +1,15 @@
+{
+  "name": "@poc/api-client",
+  "version": "1.0.0",
+  "description": "Typed HTTP client for all POC services — both React and Angular apps import the same client, no duplicated fetch logic",
+  "private": true,
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "typescript": "~5.5.0"
+  }
+}

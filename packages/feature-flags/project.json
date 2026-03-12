@@ -1,0 +1,22 @@
+{
+  "name": "@poc/feature-flags",
+  "root": "packages/feature-flags",
+  "sourceRoot": "packages/feature-flags/src",
+  "projectType": "library",
+  "tags": ["type:package"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/feature-flags",
+        "main": "packages/feature-flags/src/index.ts",
+        "tsConfig": "packages/feature-flags/tsconfig.json",
+        "assets": []
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["packages/feature-flags/**/*.ts"] }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@poc/notification-service",
+  "root": "services/notification-service",
+  "sourceRoot": "services/notification-service/src",
+  "projectType": "application",
+  "tags": ["type:service"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/services/notification-service",
+        "main": "services/notification-service/src/main.ts",
+        "tsConfig": "services/notification-service/tsconfig.json",
+        "assets": []
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ts-node-dev --respawn --transpile-only src/main.ts",
+        "cwd": "services/notification-service"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["services/notification-service/**/*.ts"] }
+    }
+  }
+}

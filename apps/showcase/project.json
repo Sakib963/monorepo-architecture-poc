@@ -1,0 +1,39 @@
+{
+  "name": "@poc/showcase",
+  "root": "apps/showcase",
+  "sourceRoot": "apps/showcase/src",
+  "projectType": "application",
+  "tags": ["type:app"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "options": {
+        "outputPath": "dist/apps/showcase",
+        "index": "apps/showcase/src/index.html",
+        "main": "apps/showcase/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/showcase/tsconfig.app.json",
+        "styles": ["apps/showcase/src/styles.css"],
+        "assets": []
+      },
+      "configurations": {
+        "production": { "optimization": true, "outputHashing": "all" },
+        "development": { "optimization": false, "sourceMap": true }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:dev-server",
+      "options": { "port": 4200 },
+      "configurations": {
+        "production": { "buildTarget": "showcase:build:production" },
+        "development": { "buildTarget": "showcase:build:development" }
+      },
+      "defaultConfiguration": "development"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["apps/showcase/**/*.ts"] }
+    }
+  }
+}

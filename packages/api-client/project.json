@@ -1,0 +1,22 @@
+{
+  "name": "@poc/api-client",
+  "root": "packages/api-client",
+  "sourceRoot": "packages/api-client/src",
+  "projectType": "library",
+  "tags": ["type:package"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/api-client",
+        "main": "packages/api-client/src/index.ts",
+        "tsConfig": "packages/api-client/tsconfig.json",
+        "assets": []
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["packages/api-client/**/*.ts"] }
+    }
+  }
+}

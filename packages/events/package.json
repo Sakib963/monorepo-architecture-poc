@@ -1,0 +1,19 @@
+{
+  "name": "@poc/events",
+  "version": "1.0.0",
+  "description": "Shared typed event contracts — if a producer or consumer changes shape, TypeScript catches it at compile time across all services",
+  "private": true,
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/uuid": "^10.0.0",
+    "typescript": "~5.5.0"
+  }
+}

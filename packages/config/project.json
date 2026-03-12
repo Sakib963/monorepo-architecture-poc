@@ -1,0 +1,22 @@
+{
+  "name": "@poc/config",
+  "root": "packages/config",
+  "sourceRoot": "packages/config/src",
+  "projectType": "library",
+  "tags": ["type:package"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/config",
+        "main": "packages/config/src/index.ts",
+        "tsConfig": "packages/config/tsconfig.json",
+        "assets": []
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["packages/config/**/*.ts"] }
+    }
+  }
+}

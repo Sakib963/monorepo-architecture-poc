@@ -1,9 +1,11 @@
 {
-  "name": "@monorepo/config",
+  "name": "@poc/config",
   "version": "1.0.0",
-  "description": "Shared tooling configuration",
-  "files": [
-    "tsconfig.json",
-    "eslint.js"
-  ]
+  "description": "Shared tooling config: tsconfig base, ESLint rules",
+  "private": true,
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "echo 'config package has no build step'",
+    "lint": "eslint ."
+  }
 }

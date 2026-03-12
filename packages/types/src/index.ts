@@ -1,3 +1,4 @@
-// Shared TypeScript types will be exported from here
-export * from './user.js';
-export * from './auth.js';
+export * from './user.types';
+export * from './product-order.types';
+export * from './notification.types';
+export * from './api.types';

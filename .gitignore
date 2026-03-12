@@ -9,12 +9,17 @@ build/
 out/
 .angular/
 **/.angular/
+*.tsbuildinfo
+
+# NX cache
+.nx/cache
+.nx/workspace-data
 
 # Environment files
 .env
 .env*.local
 
-# IDE
+# IDE — personal settings differ per developer, don't commit
 .vscode/
 .idea/
 *.swp
@@ -25,18 +30,18 @@ out/
 .DS_Store
 Thumbs.db
 
-# Logs
+# Logs — generated at runtime, never committed
 *.log
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.logs/
 
-# Testing
-coverage/
-.nyc_output/
+# Process IDs — generated at runtime by start.sh
+.pids/
 
-# Turborepo
+# Turborepo (legacy; replaced by NX in this repo)
 .turbo/
 
 # Temporary files

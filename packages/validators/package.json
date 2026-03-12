@@ -1,0 +1,18 @@
+{
+  "name": "@poc/validators",
+  "version": "1.0.0",
+  "description": "Shared business validation rules using Zod — same code runs in browser and Node.js",
+  "private": true,
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.5.0"
+  }
+}

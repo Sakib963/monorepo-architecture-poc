@@ -1,0 +1,183 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f7fafc;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.app-header h1 { font-size: 1.5rem; font-weight: 700; }
+.app-header .badge {
+  background: #ebf8ff; color: #2b6cb0;
+  font-size: 0.7rem; font-weight: 700;
+  padding: 0.25rem 0.6rem; border-radius: 9999px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+.tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.tag { background: #edf2f7; color: #4a5568; font-size: 0.75rem; font-weight: 600;
+       padding: 0.2rem 0.6rem; border-radius: 0.25rem; font-family: monospace; }
+
+.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 0.5rem;
+        padding: 1.5rem; margin-bottom: 1.5rem; }
+.card h2 { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: #2d3748; }
+
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; }
+.field { display: flex; flex-direction: column; gap: 0.3rem; }
+.field label { font-size: 0.8rem; font-weight: 600; color: #718096; }
+.field input, .field select {
+  padding: 0.5rem 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.375rem;
+  font-size: 0.9rem; outline: none; transition: border 0.15s;
+}
+.field input:focus, .field select:focus { border-color: #4299e1; }
+.field input.error, .field select.error { border-color: #fc8181; }
+.field .err { font-size: 0.75rem; color: #e53e3e; }
+
+.btn-row { display: flex; gap: 0.75rem; margin-top: 1rem; align-items: center; }
+.btn { padding: 0.5rem 1.25rem; border: none; border-radius: 0.375rem;
+       font-weight: 600; cursor: pointer; font-size: 0.875rem; transition: opacity 0.15s; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary { background: #4299e1; color: #fff; }
+.btn-primary:hover:not(:disabled) { background: #3182ce; }
+.btn-ghost { background: transparent; color: #718096; border: 1px solid #e2e8f0; }
+
+.user-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.user-table th { text-align: left; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+                  letter-spacing: 0.05em; color: #718096; padding: 0.5rem 0.75rem;
+                  border-bottom: 2px solid #e2e8f0; }
+.user-table td { padding: 0.75rem; border-bottom: 1px solid #f7fafc; }
+.user-table tr:hover td { background: #f7fafc; }
+
+.status-dot { display: inline-block; width: 0.5rem; height: 0.5rem;
+              border-radius: 50%; margin-right: 0.4rem; }
+.dot-active { background: #48bb78; }
+.dot-suspended { background: #fc8181; }
+.dot-inactive { background: #a0aec0; }
+
+.role-badge { display: inline-block; font-size: 0.7rem; font-weight: 700;
+              padding: 0.15rem 0.5rem; border-radius: 9999px; }
+.role-admin { background: #faf5ff; color: #6b46c1; }
+.role-manager { background: #ebf8ff; color: #2b6cb0; }
+.role-customer { background: #f0fff4; color: #276749; }
+
+.alert { padding: 0.75rem 1rem; border-radius: 0.375rem; font-size: 0.875rem; margin-bottom: 1rem; }
+.alert-success { background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; }
+.alert-error { background: #fff5f5; color: #c53030; border: 1px solid #fed7d7; }
+
+.flag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.5rem; }
+.flag-item { display: flex; justify-content: space-between; align-items: center;
+             padding: 0.5rem 0.75rem; background: #f7fafc; border-radius: 0.375rem;
+             font-size: 0.8rem; }
+.flag-on { color: #276749; font-weight: 700; }
+.flag-off { color: #a0aec0; }
+
+.loading { text-align: center; padding: 2rem; color: #a0aec0; }
+
+/* ── Dark mode (UI_DARK_MODE: true) ──────────────────────────────────────── */
+.dark { background: #1a202c; color: #e2e8f0; }
+.dark .card { background: #2d3748; border-color: #4a5568; }
+.dark .card h2 { color: #e2e8f0; }
+.dark .app-header { border-color: #4a5568; }
+.dark .tag { background: #4a5568; color: #e2e8f0; }
+.dark .field input { background: #4a5568; border-color: #718096; color: #e2e8f0; }
+.dark .field label { color: #a0aec0; }
+.dark .user-table th { color: #a0aec0; border-color: #4a5568; }
+.dark .user-table td { border-color: #2d3748; }
+.dark .user-table tr:hover td { background: #4a5568; }
+.dark .flag-item { background: #4a5568; }
+.dark .btn-ghost { color: #a0aec0; border-color: #4a5568; }
+.dark .loading { color: #718096; }
+
+/* ── Maintenance banner (CORE_MAINTENANCE_MODE: true) ────────────────────── */
+.maintenance-banner {
+  display: flex; gap: 1rem; align-items: flex-start;
+  background: #fff5f5; border: 1px solid #fc8181; border-left: 4px solid #e53e3e;
+  border-radius: 0.375rem; padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+  color: #742a2a;
+}
+.maintenance-banner p { margin: 0.25rem 0 0; font-size: 0.85rem; }
+.maintenance-banner code { font-size: 0.75rem; opacity: 0.7; }
+.maint-icon { font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
+.badge-maint { background: #fff5f5; color: #c53030; border: 1px solid #fc8181; }
+.badge-dark  { background: #1a202c; color: #e2e8f0; }
+
+/* ── Flag-blocked card (USER_SELF_REGISTRATION: false) ───────────────────── */
+.flag-blocked {
+  display: flex; gap: 1rem; align-items: flex-start;
+  background: #fffff0; border: 1px dashed #d69e2e; color: #744210;
+}
+.flag-blocked p { margin: 0.25rem 0 0; font-size: 0.85rem; }
+.flag-blocked-icon { font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
+
+/* ── Feature flag badges displayed inline on card headers ────────────────── */
+.flag-badge { display: inline-block; font-size: 0.65rem; font-weight: 700;
+              padding: 0.15rem 0.45rem; border-radius: 0.25rem; }
+.flag-on-badge  { background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; }
+.flag-off-badge { background: #f7fafc; color: #a0aec0; border: 1px solid #e2e8f0; }
+
+/* ── Flag panel — on-state highlight (flag-item-on) ─────────────────────── */
+.flag-item-on { background: #f0fff4 !important; border: 1px solid #c6f6d5; }
+.dark .flag-item-on { background: #1c4532 !important; border-color: #276749; }
+
+/* ── Quick-actions bar (UI_QUICK_ACTIONS_BAR: true) ─────────────────────── */
+.quick-actions-bar {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  display: flex; align-items: center; gap: 0.5rem;
+  background: #2d3748; color: #e2e8f0; border-radius: 9999px;
+  padding: 0.5rem 1.25rem; box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 1000; font-size: 0.85rem;
+}
+.qa-label { font-weight: 700; margin-right: 0.25rem; }
+.qa-btn {
+  background: rgba(255,255,255,0.1); border: none; color: #e2e8f0;
+  padding: 0.25rem 0.75rem; border-radius: 9999px; cursor: pointer;
+  font-size: 0.8rem; transition: background 0.15s;
+}
+.qa-btn:hover:not(:disabled) { background: rgba(255,255,255,0.2); }
+.qa-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.qa-flag { font-size: 0.65rem; opacity: 0.6; margin-left: 0.5rem; }
+
+/* ── Bulk-actions bar (ORDER_BULK_OPERATIONS rows selected) ──────────────── */
+.bulk-actions-bar {
+  display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+  background: #ebf8ff; border: 1px solid #bee3f8; border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem; margin-bottom: 0.75rem; font-size: 0.85rem; color: #2b6cb0;
+}
+.row-selected td { background: #ebf8ff !important; }
+
+/* ── User card grid (UI_NEW_DASHBOARD_LAYOUT: true) ─────────────────────── */
+.user-card-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem;
+}
+.user-card {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;
+  transition: box-shadow 0.15s;
+}
+.user-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+.user-card-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.user-card-info strong { font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-card-email { font-size: 0.75rem; color: #718096; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bulk-check { margin-left: auto; flex-shrink: 0; }
+
+/* ── Avatar (USER_PROFILE_PICTURE: true) ─────────────────────────────────── */
+.avatar {
+  width: 2.25rem; height: 2.25rem; border-radius: 50%;
+  background: linear-gradient(135deg, #4299e1, #667eea);
+  color: #fff; font-weight: 700; font-size: 0.75rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; text-transform: uppercase;
+}
+.avatar-sm { width: 1.75rem; height: 1.75rem; font-size: 0.65rem; }

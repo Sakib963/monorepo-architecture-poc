@@ -1,0 +1,22 @@
+{
+  "name": "@poc/events",
+  "root": "packages/events",
+  "sourceRoot": "packages/events/src",
+  "projectType": "library",
+  "tags": ["type:package"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/events",
+        "main": "packages/events/src/index.ts",
+        "tsConfig": "packages/events/tsconfig.json",
+        "assets": []
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["packages/events/**/*.ts"] }
+    }
+  }
+}

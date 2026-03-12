@@ -1,0 +1,19 @@
+{
+  "name": "@poc/ui-components",
+  "root": "packages/ui-components",
+  "sourceRoot": "packages/ui-components/src",
+  "projectType": "library",
+  "tags": ["type:package"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "options": {
+        "project": "packages/ui-components/ng-package.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["packages/ui-components/**/*.ts"] }
+    }
+  }
+}

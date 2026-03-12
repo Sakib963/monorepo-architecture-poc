@@ -1,0 +1,15 @@
+{
+  "name": "@poc/feature-flags",
+  "version": "1.0.0",
+  "description": "Centralized runtime feature flags — change one file, toggle features across all apps and services simultaneously",
+  "private": true,
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "typescript": "~5.5.0"
+  }
+}

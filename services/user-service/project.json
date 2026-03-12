@@ -1,0 +1,29 @@
+{
+  "name": "@poc/user-service",
+  "root": "services/user-service",
+  "sourceRoot": "services/user-service/src",
+  "projectType": "application",
+  "tags": ["type:service"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/services/user-service",
+        "main": "services/user-service/src/main.ts",
+        "tsConfig": "services/user-service/tsconfig.json",
+        "assets": []
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ts-node-dev --respawn --transpile-only src/main.ts",
+        "cwd": "services/user-service"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["services/user-service/**/*.ts"] }
+    }
+  }
+}

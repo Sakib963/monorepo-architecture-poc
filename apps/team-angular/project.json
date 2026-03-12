@@ -1,0 +1,39 @@
+{
+  "name": "@poc/team-angular",
+  "root": "apps/team-angular",
+  "sourceRoot": "apps/team-angular/src",
+  "projectType": "application",
+  "tags": ["type:app"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "options": {
+        "outputPath": "dist/apps/team-angular",
+        "index": "apps/team-angular/src/index.html",
+        "main": "apps/team-angular/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/team-angular/tsconfig.app.json",
+        "styles": ["apps/team-angular/src/styles.css"],
+        "assets": []
+      },
+      "configurations": {
+        "production": { "optimization": true, "outputHashing": "all" },
+        "development": { "optimization": false, "sourceMap": true }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:dev-server",
+      "options": { "port": 4202 },
+      "configurations": {
+        "production": { "buildTarget": "team-angular:build:production" },
+        "development": { "buildTarget": "team-angular:build:development" }
+      },
+      "defaultConfiguration": "development"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["apps/team-angular/**/*.ts"] }
+    }
+  }
+}

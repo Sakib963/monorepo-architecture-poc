@@ -1,7 +1,6 @@
 {
-  "name": "monorepo-architecture-poc",
-  "version": "1.0.0",
-  "description": "Monorepo POC with multi-framework applications",
+  "name": "monorepo-poc",
+  "version": "0.0.1",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -9,16 +8,24 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "test": "turbo run test",
-    "clean": "turbo run clean"
+    "dev": "nx run-many --target=dev --all --parallel=10",
+    "build": "nx run-many --target=build --all",
+    "test": "nx run-many --target=test --all",
+    "lint": "nx run-many --target=lint --all",
+    "graph": "nx graph"
   },
   "devDependencies": {
-    "turbo": "^1.10.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "@nx/angular": "19.8.13",
+    "@nx/eslint": "19.8.13",
+    "@nx/js": "19.8.13",
+    "@nx/node": "19.8.13",
+    "@nx/react": "19.8.13",
+    "@nx/vite": "19.8.13",
+    "@nx/webpack": "19.8.13",
+    "@nx/web": "19.8.13",
+    "@types/node": "^20.0.0",
+    "eslint": "^8.57.0",
+    "nx": "19.8.13",
+    "typescript": "~5.5.0"
   }
 }
