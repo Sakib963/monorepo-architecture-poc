@@ -78,13 +78,15 @@ form.addEventListener('submit', async (event) => {
 
     console.log('Login successful:', { userId: response.userId, role: response.role });
 
-    // Store token in localStorage for the apps to use
+    // Store token in own localStorage for "already logged in" detection on this page
     localStorage.setItem('authToken', response.token);
     localStorage.setItem('userId', response.userId);
     localStorage.setItem('userRole', response.role);
 
-    // Determine redirect URL based on role
-    const redirectUrl = response.role === Role.ADMIN ? ADMIN_APP_URL : USER_APP_URL;
+    // NOTE: localStorage is scoped per origin (port), so we pass the token via URL
+    // query param so the target app can store it in its own localStorage.
+    const appUrl = response.role === Role.ADMIN ? ADMIN_APP_URL : USER_APP_URL;
+    const redirectUrl = `${appUrl}?token=${encodeURIComponent(response.token)}`;
 
     // Show success message and redirect
     showSuccessAndRedirect(response.role, redirectUrl);
@@ -109,6 +111,16 @@ form.addEventListener('submit', async (event) => {
 // Auto-focus username field on load
 usernameInput.focus();
 
+// If redirected here after logout, clear this origin's stored session first
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('logout') === 'true') {
+  localStorage.removeItem('authToken');
+  localStorage.removeItem('userId');
+  localStorage.removeItem('userRole');
+  // Clean the URL
+  window.history.replaceState({}, '', window.location.pathname);
+}
+
 // Check if user is already logged in
 const existingToken = localStorage.getItem('authToken');
 const existingRole = localStorage.getItem('userRole');
@@ -120,7 +132,9 @@ if (existingToken && existingRole) {
   authClient.getCurrentUser().then(user => {
     if (user) {
       console.log('Valid session found, redirecting...');
-      const redirectUrl = user.role === Role.ADMIN ? ADMIN_APP_URL : USER_APP_URL;
+      const appUrl = user.role === Role.ADMIN ? ADMIN_APP_URL : USER_APP_URL;
+      const token = localStorage.getItem('authToken') || '';
+      const redirectUrl = `${appUrl}?token=${encodeURIComponent(token)}`;
       showSuccessAndRedirect(user.role, redirectUrl);
     }
   }).catch(() => {

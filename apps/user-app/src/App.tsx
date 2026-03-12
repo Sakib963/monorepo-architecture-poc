@@ -12,8 +12,17 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    
+    // Check for token passed via URL (from auth-gateway on a different port/origin)
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get('token');
+    if (tokenFromUrl) {
+      localStorage.setItem('authToken', tokenFromUrl);
+      // Clean the token from the URL bar
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+
+    const token = tokenFromUrl || localStorage.getItem('authToken');
+
     if (!token) {
       // No token, redirect to login
       window.location.href = AUTH_GATEWAY_URL;
@@ -29,7 +38,7 @@ function App() {
         } else {
           // Invalid token, redirect to login
           localStorage.clear();
-          window.location.href = AUTH_GATEWAY_URL;
+          window.location.href = `${AUTH_GATEWAY_URL}?logout=true`;
         }
       })
       .catch((err) => {
@@ -43,7 +52,7 @@ function App() {
 
   const handleLogout = () => {
     localStorage.clear();
-    window.location.href = AUTH_GATEWAY_URL;
+    window.location.href = `${AUTH_GATEWAY_URL}?logout=true`;
   };
 
   if (loading) {

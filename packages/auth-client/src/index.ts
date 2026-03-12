@@ -6,6 +6,10 @@ export class AuthClient {
 
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
+    // Try to load token from localStorage on initialization
+    if (typeof localStorage !== 'undefined') {
+      this.token = localStorage.getItem('authToken');
+    }
   }
 
   async login(credentials: LoginRequest): Promise<AuthResponse> {
@@ -23,10 +27,19 @@ export class AuthClient {
 
     const data: AuthResponse = await response.json();
     this.token = data.token;
+    // Store token in localStorage
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('authToken', data.token);
+    }
     return data;
   }
 
   async getCurrentUser(): Promise<User | null> {
+    // Try to get token from localStorage if not in memory
+    if (!this.token && typeof localStorage !== 'undefined') {
+      this.token = localStorage.getItem('authToken');
+    }
+    
     if (!this.token) {
       return null;
     }
@@ -47,9 +60,19 @@ export class AuthClient {
 
   logout(): void {
     this.token = null;
+    // Clear token from localStorage
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userRole');
+    }
   }
 
   getToken(): string | null {
+    // Try to get token from localStorage if not in memory
+    if (!this.token && typeof localStorage !== 'undefined') {
+      this.token = localStorage.getItem('authToken');
+    }
     return this.token;
   }
 }

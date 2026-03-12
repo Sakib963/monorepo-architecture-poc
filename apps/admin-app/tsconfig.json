@@ -23,8 +23,8 @@
       "dom"
     ],
     "paths": {
-      "@monorepo/types": ["../../packages/types/src"],
-      "@monorepo/auth-client": ["../../packages/auth-client/src"]
+      "@monorepo/types": ["../../packages/types/dist"],
+      "@monorepo/auth-client": ["../../packages/auth-client/dist"]
     }
   },
   "angularCompilerOptions": {
