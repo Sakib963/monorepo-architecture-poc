@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +7,6 @@ import { UserRole, UserStatus } from '@poc/types';
 import { getFlag } from '@poc/feature-flags';
 import type { FeatureFlags } from '@poc/feature-flags';
 import {
-  ButtonComponent,
   CardComponent,
   BadgeComponent,
   StatusIndicatorComponent,
@@ -20,7 +19,8 @@ const API_BASE = 'http://localhost:3000';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonComponent, CardComponent, BadgeComponent, StatusIndicatorComponent],
+  imports: [CommonModule, FormsModule, CardComponent, BadgeComponent, StatusIndicatorComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
     <div class="app" [class.dark]="darkMode">
       <header class="app-header">
@@ -103,7 +103,7 @@ const API_BASE = 'http://localhost:3000';
         </div>
 
         <div [attr.slot]="'footer'" *ngIf="!loading">
-          <poc-button variant="ghost" (click)="loadUsers()">↻ Refresh</poc-button>
+          <poc-shared-button variant="ghost" (click)="loadUsers()">↻ Refresh</poc-shared-button>
           <span style="margin-left:1rem; font-size:0.8rem; color:#a0aec0">
             {{ filteredUsers.length }} / {{ users.length }} user(s) shown via &#64;poc/api-client
           </span>
@@ -113,21 +113,21 @@ const API_BASE = 'http://localhost:3000';
       <!-- UI_QUICK_ACTIONS_BAR ───────────────────────────────────────────── -->
       <div *ngIf="quickActionsBar" class="quick-actions-bar">
         <span class="qa-label">⚡ Quick Actions</span>
-        <button class="qa-btn" [disabled]="maintenanceMode">+ User</button>
-        <button class="qa-btn">📋 Export</button>
-        <button class="qa-btn">🔔 Notify</button>
+        <poc-shared-button size="sm" variant="secondary" [attr.disabled]="maintenanceMode ? '' : null">+ User</poc-shared-button>
+        <poc-shared-button size="sm" variant="secondary">📋 Export</poc-shared-button>
+        <poc-shared-button size="sm" variant="secondary">🔔 Notify</poc-shared-button>
         <span class="qa-flag">UI_QUICK_ACTIONS_BAR: ON</span>
       </div>
 
       <!-- Components showcase ─────────────────────────────────────────────── -->
-      <poc-card title="Shared UI Components — @poc/ui-components" subtitle="ButtonComponent, CardComponent, BadgeComponent, StatusIndicatorComponent" [bordered]="true">
+      <poc-card title="Shared UI Components — @poc/ui-components" subtitle="Shared Web Component Button + Angular Card/Badge/StatusIndicator" [bordered]="true">
         <div class="component-row">
-          <poc-button variant="primary">Primary</poc-button>
-          <poc-button variant="secondary">Secondary</poc-button>
-          <poc-button variant="danger">Danger</poc-button>
-          <poc-button variant="ghost">Ghost</poc-button>
-          <poc-button variant="primary" [loading]="true">Loading</poc-button>
-          <poc-button variant="primary" [disabled]="true">Disabled</poc-button>
+          <poc-shared-button variant="primary">Primary</poc-shared-button>
+          <poc-shared-button variant="secondary">Secondary</poc-shared-button>
+          <poc-shared-button variant="danger">Danger</poc-shared-button>
+          <poc-shared-button variant="ghost">Ghost</poc-shared-button>
+          <poc-shared-button variant="primary" loading>Loading</poc-shared-button>
+          <poc-shared-button variant="primary" disabled>Disabled</poc-shared-button>
         </div>
         <div class="component-row" style="margin-top:1rem">
           <poc-badge color="blue">ADMIN</poc-badge>

@@ -3,6 +3,7 @@ import type { User, FeatureFlags } from './types';
 import type { FieldError } from '@poc/validators';
 import { validate, createUserSchema } from './validation';
 import { api } from './api';
+import { Button } from '@poc/ui-components/react';
 
 // ── App ───────────────────────────────────────────────────────────────────────
 
@@ -70,9 +71,9 @@ export default function App() {
       {flags.UI_QUICK_ACTIONS_BAR && (
         <div className="quick-actions-bar">
           <span className="qa-label">⚡ Quick Actions</span>
-          <button className="qa-btn" disabled={maintenance}>+ User</button>
-          <button className="qa-btn">📋 Export</button>
-          <button className="qa-btn">🔔 Notify</button>
+          <Button size="sm" className="qa-btn" disabled={maintenance}>+ User</Button>
+          <Button size="sm" className="qa-btn">📋 Export</Button>
+          <Button size="sm" className="qa-btn">🔔 Notify</Button>
           <span className="qa-flag">UI_QUICK_ACTIONS_BAR: ON</span>
         </div>
       )}
@@ -113,7 +114,12 @@ function CreateUserForm({ disabled }: { disabled?: boolean }) {
 
     setLoading(true);
     try {
-      await api.createUser(result.data!);
+      await api.createUser({
+        email: result.data!.email,
+        password: result.data!.password,
+        firstName: result.data!.firstName,
+        lastName: result.data!.lastName,
+      });
       setStatus({ type: 'success', text: `✅ User "${fields.firstName} ${fields.lastName}" created! Same Zod schema validated both client + server.` });
       setFields({ email: '', password: '', firstName: '', lastName: '' });
     } catch (err: unknown) {
@@ -162,9 +168,9 @@ function CreateUserForm({ disabled }: { disabled?: boolean }) {
           </div>
         </div>
         <div className="btn-row">
-          <button type="submit" className="btn btn-primary" disabled={loading || disabled}>
+          <Button type="submit" variant="primary" disabled={loading || disabled} loading={loading}>
             {loading ? 'Creating…' : 'Create User'}
-          </button>
+          </Button>
           {disabled && <span style={{ fontSize: '0.8rem', color: '#a0aec0' }}>Unlock: set CORE_MAINTENANCE_MODE: false</span>}
         </div>
       </form>
@@ -215,16 +221,16 @@ function UserList({ flags }: { flags: Partial<FeatureFlags> }) {
           {cardView  && <span className="flag-badge flag-on-badge">📊 UI_NEW_DASHBOARD_LAYOUT</span>}
           {bulkOps   && <span className="flag-badge flag-on-badge">☑️ ORDER_BULK_OPERATIONS</span>}
           {avatars   && <span className="flag-badge flag-on-badge">🖼 USER_PROFILE_PICTURE</span>}
-          <button className="btn btn-ghost" onClick={load} disabled={loading}>↻ Refresh</button>
+            <Button variant="ghost" onClick={load} disabled={loading}>↻ Refresh</Button>
         </div>
       </div>
 
       {bulkOps && selected.size > 0 && (
         <div className="bulk-actions-bar">
           <span>{selected.size} user(s) selected</span>
-          <button className="btn btn-ghost" style={{ fontSize: '0.8rem' }}>Suspend selected</button>
-          <button className="btn btn-ghost" style={{ fontSize: '0.8rem', color: '#c53030' }}>Delete selected</button>
-          <button className="btn btn-ghost" style={{ fontSize: '0.8rem' }} onClick={() => setSelected(new Set())}>Clear</button>
+            <Button variant="ghost" size="sm">Suspend selected</Button>
+            <Button variant="ghost" size="sm" style={{ color: '#c53030' }}>Delete selected</Button>
+            <Button variant="ghost" size="sm" onClick={() => setSelected(new Set())}>Clear</Button>
         </div>
       )}
 

@@ -168,9 +168,9 @@ export class OverviewComponent {
     },
     {
       name: '@poc/ui-components',
-      description: 'Angular 17 standalone component library. Both Angular apps import ButtonComponent, CardComponent, BadgeComponent — same markup, same styles.',
+      description: 'Shared UI package with a cross-framework Web Component button plus Angular standalone components (Card, Badge, StatusIndicator).',
       color: '#76e4f7',
-      files: ['button.component.ts', 'card.component.ts', 'badge.component.ts', 'status-indicator.component.ts'],
+      files: ['button.shared.ts', 'button.react.tsx', 'card.component.ts', 'badge.component.ts', 'status-indicator.component.ts'],
       usedBy: ['team-angular', 'showcase'],
     },
   ];

@@ -23,6 +23,8 @@
       "@poc/feature-flags": ["packages/feature-flags/src/index.ts"],
       "@poc/api-client": ["packages/api-client/src/index.ts"],
       "@poc/ui-components": ["packages/ui-components/src/index.ts"],
+      "@poc/ui-components/react": ["packages/ui-components/src/react.tsx"],
+      "@poc/ui-components/shared-elements": ["packages/ui-components/src/shared-elements.ts"],
       "@poc/config": ["packages/config/src/index.ts"]
     }
   },

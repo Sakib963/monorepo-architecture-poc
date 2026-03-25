@@ -47,7 +47,7 @@ export interface FeatureFlags {
  */
 export const FEATURE_FLAGS: FeatureFlags = {
   // Core platform
-  CORE_MAINTENANCE_MODE: true,
+  CORE_MAINTENANCE_MODE: false,
   CORE_AUDIT_LOGGING: true,
 
   // User service
@@ -65,7 +65,7 @@ export const FEATURE_FLAGS: FeatureFlags = {
   NOTIFY_DIGEST_EMAIL: true,
 
   // UI
-  UI_DARK_MODE: true,
+  UI_DARK_MODE: false,
   UI_NEW_DASHBOARD_LAYOUT: false, // ← A/B test, 0% rollout
   UI_QUICK_ACTIONS_BAR: true,
 };

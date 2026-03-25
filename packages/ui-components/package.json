@@ -1,7 +1,7 @@
 {
   "name": "@poc/ui-components",
   "version": "1.0.0",
-  "description": "Shared Angular component library — same Button, Card, Badge and StatusIndicator used by both the showcase hub and the team-angular app",
+  "description": "Shared UI components package with cross-framework Web Components and Angular/React entrypoints",
   "private": true,
   "main": "./src/index.ts",
   "scripts": {

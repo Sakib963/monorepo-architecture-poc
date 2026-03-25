@@ -1,6 +1,3 @@
-export { ButtonComponent } from './button/button.component';
-export type { ButtonVariant, ButtonSize } from './button/button.component';
-
 export { CardComponent } from './card/card.component';
 
 export { BadgeComponent } from './badge/badge.component';
