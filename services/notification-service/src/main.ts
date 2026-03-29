@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { notificationRouter } from './notification.routes';
+import { notificationRouter } from './routes';
 import { getAllFlags } from '@poc/feature-flags';
 
 const app = express();

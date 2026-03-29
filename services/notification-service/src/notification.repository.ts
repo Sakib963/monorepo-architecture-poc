@@ -1,40 +1,60 @@
 import { v4 as uuidv4 } from 'uuid';
 import type { Notification, CreateNotificationDto } from '@poc/types';
 import { NotificationType, NotificationStatus } from '@poc/types';
+import fs from 'fs';
+import path from 'path';
 
-const notifications: Map<string, Notification> = new Map();
+const STORAGE_PATH = path.resolve(__dirname, './data/notifications.json');
 
-// Seed a couple of notifications
-const seedItems: Omit<Notification, 'id' | 'createdAt'>[] = [
+const fallbackSeed: Notification[] = [
   {
+    id: '9e2ab2b8-e1de-4d60-9689-87e94f6a9451',
     userId: 'system',
     type: NotificationType.IN_APP,
-    status: NotificationStatus.SENT,
     title: 'Welcome to the POC',
-    message: 'This notification was delivered via the shared @poc/types package — same model used by the frontend and this service.',
+    message: 'This notification was delivered via persisted JSON storage in notification-service.',
+    status: NotificationStatus.SENT,
+    createdAt: '2026-03-20T07:00:00.000Z',
   },
 ];
 
-seedItems.forEach(n => {
-  const id = uuidv4();
-  const now = new Date().toISOString();
-  notifications.set(id, { ...n, id, createdAt: now });
-});
+function ensureStorage(): void {
+  if (!fs.existsSync(STORAGE_PATH)) {
+    fs.mkdirSync(path.dirname(STORAGE_PATH), { recursive: true });
+    fs.writeFileSync(STORAGE_PATH, JSON.stringify(fallbackSeed, null, 2), 'utf8');
+  }
+}
+
+function readNotifications(): Notification[] {
+  ensureStorage();
+  const raw = fs.readFileSync(STORAGE_PATH, 'utf8');
+  try {
+    return JSON.parse(raw) as Notification[];
+  } catch {
+    return fallbackSeed;
+  }
+}
+
+function writeNotifications(items: Notification[]): void {
+  ensureStorage();
+  fs.writeFileSync(STORAGE_PATH, JSON.stringify(items, null, 2), 'utf8');
+}
 
 export const NotificationRepository = {
   findAll(): Notification[] {
-    return Array.from(notifications.values());
+    return readNotifications();
   },
 
   findByUser(userId: string): Notification[] {
-    return Array.from(notifications.values()).filter(n => n.userId === userId);
+    return readNotifications().filter((notification) => notification.userId === userId);
   },
 
   findById(id: string): Notification | undefined {
-    return notifications.get(id);
+    return readNotifications().find((notification) => notification.id === id);
   },
 
   create(dto: CreateNotificationDto): Notification {
+    const notifications = readNotifications();
     const id = uuidv4();
     const now = new Date().toISOString();
     const notification: Notification = {
@@ -46,23 +66,32 @@ export const NotificationRepository = {
       message: dto.message,
       createdAt: now,
     };
-    notifications.set(id, notification);
+    notifications.push(notification);
+    writeNotifications(notifications);
     return notification;
   },
 
   markDelivered(id: string): Notification | undefined {
-    const n = notifications.get(id);
-    if (!n) return undefined;
-    const updated: Notification = { ...n, status: NotificationStatus.SENT };
-    notifications.set(id, updated);
+    const notifications = readNotifications();
+    const index = notifications.findIndex((notification) => notification.id === id);
+    if (index === -1) return undefined;
+    const updated: Notification = { ...notifications[index], status: NotificationStatus.SENT };
+    notifications[index] = updated;
+    writeNotifications(notifications);
     return updated;
   },
 
   markRead(id: string): Notification | undefined {
-    const n = notifications.get(id);
-    if (!n) return undefined;
-    const updated: Notification = { ...n, status: NotificationStatus.READ };
-    notifications.set(id, updated);
+    const notifications = readNotifications();
+    const index = notifications.findIndex((notification) => notification.id === id);
+    if (index === -1) return undefined;
+    const updated: Notification = {
+      ...notifications[index],
+      status: NotificationStatus.READ,
+      readAt: notifications[index].readAt ?? new Date().toISOString(),
+    };
+    notifications[index] = updated;
+    writeNotifications(notifications);
     return updated;
   },
 };

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "ab59311f-0415-45b2-8db0-8ff05f43598f",
+    "userId": "a0d88eb8-83a4-45fa-a9cd-7ee95f47d181",
+    "type": "IN_APP",
+    "title": "KYC Reminder",
+    "message": "Please update your KYC details before April 2, 2026.",
+    "status": "QUEUED",
+    "createdAt": "2026-03-28T10:00:00.000Z"
+  },
+  {
+    "id": "fcb64c4d-764c-4f3a-8f2e-b85d2f772916",
+    "userId": "a0d88eb8-83a4-45fa-a9cd-7ee95f47d181",
+    "type": "EMAIL",
+    "title": "Transfer Approved",
+    "message": "Your recent transfer request has been approved.",
+    "status": "READ",
+    "createdAt": "2026-03-27T08:15:00.000Z",
+    "readAt": "2026-03-27T09:00:00.000Z"
+  },
+  {
+    "id": "9e2ab2b8-e1de-4d60-9689-87e94f6a9451",
+    "userId": "system",
+    "type": "IN_APP",
+    "title": "Welcome to the POC",
+    "message": "This notification was delivered via persisted JSON storage in notification-service.",
+    "status": "SENT",
+    "createdAt": "2026-03-20T07:00:00.000Z"
+  }
+]

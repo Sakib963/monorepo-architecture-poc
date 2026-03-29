@@ -4,10 +4,19 @@ html, body {
 	margin: 0;
 	font-family: Inter, "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
 	color: #0f172a;
-	background: #f8fafc;
+	background: linear-gradient(180deg, #f8fbff 0%, #f8fafc 45%, #f1f5f9 100%);
+	line-height: 1.45;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
 }
 
 body {
 	min-height: 100vh;
+}
+
+a { color: inherit; }
+
+::selection {
+	background: rgba(37, 99, 235, 0.16);
 }
 /* You can add global styles to this file, and also import other style files */

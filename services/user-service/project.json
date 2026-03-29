@@ -11,13 +11,19 @@
         "outputPath": "dist/services/user-service",
         "main": "services/user-service/src/main.ts",
         "tsConfig": "services/user-service/tsconfig.json",
-        "assets": []
+        "assets": [
+          {
+            "glob": "**/*.json",
+            "input": "services/user-service/src/data",
+            "output": "src/data"
+          }
+        ]
       }
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "ts-node-dev --respawn --transpile-only src/main.ts",
+        "command": "bash ../../scripts/run-service-dev.sh 3001 src/main.ts",
         "cwd": "services/user-service"
       }
     },

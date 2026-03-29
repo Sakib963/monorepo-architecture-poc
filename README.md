@@ -111,6 +111,20 @@ curl http://localhost:3000/flags      # Feature flags snapshot
 
 ---
 
+## Persistent Notification Data
+
+- Notification service now stores data in JSON at `services/notification-service/src/data/notifications.json`.
+- Repository methods read/write this file on create/update actions, so data survives service restarts.
+- Seed sample notifications are included in that JSON file for realistic local testing.
+
+## Persistent User Data
+
+- User service now stores users in JSON at `services/user-service/src/data/users.json`.
+- Repository reads/writes this file for create/update/delete actions.
+- Seed sample users include IDs used by user/admin portal flows so local actions work out-of-the-box.
+
+---
+
 ## Apps
 
 | App | Port | Stack | Demo Focus |

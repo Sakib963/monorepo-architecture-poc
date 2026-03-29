@@ -17,7 +17,7 @@
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "ts-node-dev --respawn --transpile-only src/main.ts",
+        "command": "bash ../../scripts/run-service-dev.sh 3000 src/main.ts",
         "cwd": "services/api-gateway"
       }
     },
