@@ -20,11 +20,14 @@ error()   { echo -e "${RED}[error]${RESET} $*"; }
 # ── Helpers ───────────────────────────────────────────────
 kill_port() {
   local port=$1
-  local pid
-  pid=$(lsof -ti tcp:"$port" 2>/dev/null || true)
-  if [[ -n "$pid" ]]; then
-    warn "Port $port already in use by PID $pid — stopping it"
-    kill -9 "$pid" 2>/dev/null || true
+  local pids
+  pids=$(lsof -ti tcp:"$port" 2>/dev/null || true)
+  if [[ -n "$pids" ]]; then
+    warn "Port $port already in use by PID(s) $(echo "$pids" | tr '\n' ' ') — stopping"
+    while IFS= read -r pid; do
+      [[ -n "$pid" ]] || continue
+      kill -9 "$pid" 2>/dev/null || true
+    done <<< "$pids"
     sleep 0.3
   fi
 }
@@ -119,37 +122,37 @@ echo ""
 info "Starting frontend apps …"
 
 (
-  cd "$ROOT/apps/team-react"
-  npx vite --port 4201 \
-    > "$LOGS/team-react.log" 2>&1 &
-  echo $! > "$PIDS/team-react.pid"
+  cd "$ROOT"
+  npx nx serve user-portal --port=4201 \
+    > "$LOGS/user-portal.log" 2>&1 &
+  echo $! > "$PIDS/user-portal.pid"
 )
 
 (
-  cd "$ROOT/apps/showcase"
-  npx ng serve --port 4200 \
+  cd "$ROOT"
+  npx nx serve @poc/showcase \
     > "$LOGS/showcase.log" 2>&1 &
   echo $! > "$PIDS/showcase.pid"
 )
 
 (
-  cd "$ROOT/apps/team-angular"
-  npx ng serve --port 4202 \
-    > "$LOGS/team-angular.log" 2>&1 &
-  echo $! > "$PIDS/team-angular.pid"
+  cd "$ROOT"
+  npx nx serve @poc/team-angular \
+    > "$LOGS/admin-portal.log" 2>&1 &
+  echo $! > "$PIDS/admin-portal.pid"
 )
 
 # Wait for frontends (Angular takes up to 60s first compile)
-wait_for_http "team-react"    4201 30
+wait_for_http "user-portal"   4201 90
 wait_for_http "showcase"      4200 90
-wait_for_http "team-angular"  4202 90
+wait_for_http "admin-portal"  4202 90
 
 # ── Open browsers ─────────────────────────────────────────
 echo ""
 info "Opening browser tabs …"
 open_url "http://localhost:4200"   # showcase
-open_url "http://localhost:4201"   # team-react
-open_url "http://localhost:4202"   # team-angular
+open_url "http://localhost:4201"   # user-portal
+open_url "http://localhost:4202"   # admin-portal
 
 # ── Summary ───────────────────────────────────────────────
 echo ""
@@ -164,8 +167,8 @@ echo -e "    Notifications  →  ${CYAN}http://localhost:3002${RESET}"
 echo ""
 echo -e "  ${BOLD}Frontend${RESET}"
 echo -e "    Showcase       →  ${CYAN}http://localhost:4200${RESET}  (Angular demos)"
-echo -e "    Team React     →  ${CYAN}http://localhost:4201${RESET}  (React + Vite)"
-echo -e "    Team Angular   →  ${CYAN}http://localhost:4202${RESET}  (Angular admin)"
+echo -e "    User Portal    →  ${CYAN}http://localhost:4201${RESET}  (Angular user)"
+echo -e "    Admin Portal   →  ${CYAN}http://localhost:4202${RESET}  (Angular admin)"
 echo ""
 echo -e "  ${BOLD}Logs${RESET}  →  .logs/*.log"
 echo -e "  ${BOLD}Stop${RESET}  →  ./stop.sh"
@@ -178,7 +181,7 @@ tail -f \
   "$LOGS/user-service.log" \
   "$LOGS/notification-service.log" \
   "$LOGS/api-gateway.log" \
-  "$LOGS/team-react.log" \
+  "$LOGS/user-portal.log" \
   "$LOGS/showcase.log" \
-  "$LOGS/team-angular.log" \
+  "$LOGS/admin-portal.log" \
   2>/dev/null

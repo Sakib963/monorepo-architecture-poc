@@ -1,27 +1,8 @@
 {
-  "name": "@poc/team-react",
+  "name": "@poc/team-react-deprecated",
   "root": "apps/team-react",
   "sourceRoot": "apps/team-react/src",
   "projectType": "application",
-  "tags": ["type:app"],
-  "targets": {
-    "build": {
-      "executor": "@nx/vite:build",
-      "options": {
-        "outputPath": "dist/apps/team-react",
-        "configFile": "apps/team-react/vite.config.ts"
-      }
-    },
-    "serve": {
-      "executor": "@nx/vite:dev-server",
-      "options": {
-        "buildTarget": "team-react:build",
-        "port": 4201
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": { "lintFilePatterns": ["apps/team-react/**/*.{ts,tsx}"] }
-    }
-  }
+  "tags": ["type:app", "deprecated", "framework:react"],
+  "targets": {}
 }

@@ -29,6 +29,11 @@
     "dev": {
       "dependsOn": ["^build"],
       "cache": false
+    },
+    "@angular-devkit/build-angular:browser": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "namedInputs": {
@@ -42,14 +47,9 @@
   },
   "generators": {
     "@nx/angular:application": {
-      "style": "css",
+      "e2eTestRunner": "none",
       "linter": "eslint",
-      "unitTestRunner": "none"
-    },
-    "@nx/react:application": {
       "style": "css",
-      "linter": "eslint",
-      "bundler": "vite",
       "unitTestRunner": "none"
     },
     "@nx/js:library": {

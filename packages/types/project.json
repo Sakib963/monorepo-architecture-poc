@@ -24,6 +24,12 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": { "lintFilePatterns": ["packages/types/**/*.ts"] }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx nx build @poc/types && node --test tests/shared/types-contracts.test.js"
+      }
     }
   }
 }

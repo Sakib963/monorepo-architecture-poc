@@ -66,6 +66,65 @@ export const createOrderSchema = z.object({
   shippingAddress: addressSchema,
 });
 
+// ─── Action schemas (User/Admin workflows) ─────────────────────────────────
+
+export const createTransferActionSchema = z.object({
+  fromAccountId: z.string().uuid('From account ID must be a valid UUID'),
+  toAccountId: z.string().uuid('To account ID must be a valid UUID'),
+  amount: z.number().positive('Amount must be positive').max(1_000_000, 'Amount exceeds maximum'),
+  currency: z.enum(['BDT', 'USD']),
+  note: z.string().max(200, 'Note too long').optional(),
+});
+
+export const approveTransferActionSchema = z.object({
+  transferId: z.string().uuid('Transfer ID must be a valid UUID'),
+  decision: z.enum(['APPROVE', 'REJECT']),
+  reason: z.string().max(250, 'Reason too long').optional(),
+});
+
+export const updateProfileActionSchema = z.object({
+  fullName: z.string().min(2, 'Full name must be at least 2 characters').max(100, 'Full name too long'),
+  phone: z.string().min(7, 'Phone number too short').max(20, 'Phone number too long'),
+  addressLine: z.string().min(5, 'Address must be at least 5 characters').max(200, 'Address too long'),
+});
+
+export const changeUserStatusActionSchema = z.object({
+  userId: z.string().uuid('User ID must be a valid UUID'),
+  status: z.enum(['ACTIVE', 'SUSPENDED', 'BLOCKED']),
+  reason: z.string().min(3, 'Reason is required').max(250, 'Reason too long'),
+});
+
+export const toggleFeatureFlagActionSchema = z.object({
+  flagKey: z.string().min(1, 'Flag key is required').max(100, 'Flag key too long'),
+  enabled: z.boolean(),
+  reason: z.string().min(3, 'Reason is required').max(250, 'Reason too long'),
+});
+
+export const requestStatementActionSchema = z.object({
+  accountId: z.string().uuid('Account ID must be a valid UUID'),
+  fromDate: z.string().datetime('fromDate must be an ISO datetime string'),
+  toDate: z.string().datetime('toDate must be an ISO datetime string'),
+  format: z.enum(['PDF', 'CSV']),
+});
+
+export const markNotificationReadActionSchema = z.object({
+  notificationIds: z.array(z.string().uuid('Notification ID must be a valid UUID')).min(1, 'At least one notification ID is required'),
+  read: z.literal(true),
+});
+
+export const resetUserCredentialActionSchema = z.object({
+  userId: z.string().uuid('User ID must be a valid UUID'),
+  channel: z.enum(['EMAIL', 'SMS']),
+  reason: z.string().min(3, 'Reason is required').max(250, 'Reason too long'),
+});
+
+export const exportAuditLogActionSchema = z.object({
+  fromDate: z.string().datetime('fromDate must be an ISO datetime string'),
+  toDate: z.string().datetime('toDate must be an ISO datetime string'),
+  format: z.enum(['CSV', 'PDF']),
+  requestedBy: z.string().min(3, 'requestedBy is required').max(100, 'requestedBy too long'),
+});
+
 // ─── Types inferred from schemas (so fields stay in sync automatically) ────
 
 export type CreateUserInput = z.infer<typeof createUserSchema>;
@@ -73,3 +132,12 @@ export type UpdateUserInput = z.infer<typeof updateUserSchema>;
 export type CreateProductInput = z.infer<typeof createProductSchema>;
 export type CreateOrderInput = z.infer<typeof createOrderSchema>;
 export type AddressInput = z.infer<typeof addressSchema>;
+export type CreateTransferActionInput = z.infer<typeof createTransferActionSchema>;
+export type ApproveTransferActionInput = z.infer<typeof approveTransferActionSchema>;
+export type UpdateProfileActionInput = z.infer<typeof updateProfileActionSchema>;
+export type ChangeUserStatusActionInput = z.infer<typeof changeUserStatusActionSchema>;
+export type ToggleFeatureFlagActionInput = z.infer<typeof toggleFeatureFlagActionSchema>;
+export type RequestStatementActionInput = z.infer<typeof requestStatementActionSchema>;
+export type MarkNotificationReadActionInput = z.infer<typeof markNotificationReadActionSchema>;
+export type ResetUserCredentialActionInput = z.infer<typeof resetUserCredentialActionSchema>;
+export type ExportAuditLogActionInput = z.infer<typeof exportAuditLogActionSchema>;

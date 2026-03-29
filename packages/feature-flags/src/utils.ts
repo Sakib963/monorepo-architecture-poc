@@ -46,3 +46,12 @@ export function getEnabledFlags(): Array<keyof FeatureFlags> {
 export function getAllFlags(): Readonly<FeatureFlags> {
   return Object.freeze({ ...FEATURE_FLAGS });
 }
+
+export function hasFlag(name: string): name is keyof FeatureFlags {
+  return name in FEATURE_FLAGS;
+}
+
+export function setFlag(name: keyof FeatureFlags, value: boolean): Readonly<FeatureFlags> {
+  FEATURE_FLAGS[name] = value;
+  return getAllFlags();
+}

@@ -1,4 +1,11 @@
-import type { Order, CreateOrderDto, PaginatedResponse } from '@poc/types';
+import type {
+  ActionResult,
+  ApproveTransferAction,
+  CreateOrderDto,
+  Order,
+  PaginatedResponse,
+  ToggleFeatureFlagAction,
+} from '@poc/types';
 import { BaseApiClient } from './base.client';
 
 export class OrderApiClient extends BaseApiClient {
@@ -22,5 +29,13 @@ export class OrderApiClient extends BaseApiClient {
 
   cancelOrder(orderId: string): Promise<Order> {
     return this.put<Order>(`/orders/${orderId}/cancel`, {});
+  }
+
+  decideTransfer(payload: ApproveTransferAction): Promise<ActionResult<{ transferId: string; decision: string }>> {
+    return this.post<ActionResult<{ transferId: string; decision: string }>>('/transfers/decision', payload);
+  }
+
+  toggleFeatureFlag(payload: ToggleFeatureFlagAction): Promise<ActionResult<{ flagKey: string; enabled: boolean }>> {
+    return this.put<ActionResult<{ flagKey: string; enabled: boolean }>>(`/flags/${payload.flagKey}`, payload);
   }
 }

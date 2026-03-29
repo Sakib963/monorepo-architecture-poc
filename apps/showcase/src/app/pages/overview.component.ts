@@ -18,14 +18,13 @@ interface PackageCard {
       <div class="hero">
         <h1 class="hero-title">Monorepo Architecture POC</h1>
         <p class="hero-sub">
-          A living example of how a single repository hosts multiple teams, frameworks, and services —
+          A living example of how a single repository hosts multiple teams and services —
           while sharing types, validation, event contracts, feature flags, and UI components safely.
         </p>
         <div class="tech-pills">
           <span class="pill">NX 19</span>
           <span class="pill">npm workspaces</span>
-          <span class="pill">Angular 17</span>
-          <span class="pill">React 18</span>
+          <span class="pill">Angular 18</span>
           <span class="pill">Express</span>
           <span class="pill">Zod</span>
           <span class="pill">TypeScript 5.5</span>
@@ -38,9 +37,9 @@ interface PackageCard {
         <div class="diagram">
 <pre class="ascii-diagram">monorepo-architecture-poc/
 ├── apps/
-│   ├── showcase/       ← This app (Angular 17) — you're looking at it
-│   ├── team-angular/   ← Team B's admin app  (Angular 17 + &#64;poc/ui-components)
-│   └── team-react/     ← Team A's product app (React 18 + Vite)
+│   ├── showcase/       ← This app (Angular) — you're looking at it
+│   ├── team-angular/   ← Admin portal app  (Angular + &#64;poc/ui-components)
+│   └── user-portal/    ← User portal app   (Angular)
 │
 ├── services/
 │   ├── api-gateway/    ← Single entry, proxies all routes
@@ -136,14 +135,14 @@ export class OverviewComponent {
       description: 'Single source of truth for all TypeScript interfaces, enums, and DTOs. If a shape changes here, TypeScript errors appear in every consumer immediately.',
       color: '#63b3ed',
       files: ['user.types.ts', 'api.types.ts', 'order.types.ts', 'notification.types.ts'],
-      usedBy: ['showcase', 'team-angular', 'team-react', 'user-service', 'notification-service', 'api-client'],
+      usedBy: ['showcase', 'team-angular', 'user-portal', 'user-service', 'notification-service', 'api-client'],
     },
     {
       name: '@poc/validators',
       description: 'Zod schemas that run identically in browser and Node.js. One schema definition, zero duplication between frontend forms and backend API.',
       color: '#68d391',
       files: ['schemas.ts', 'validate.ts'],
-      usedBy: ['team-react', 'team-angular', 'user-service', 'showcase'],
+      usedBy: ['user-portal', 'team-angular', 'user-service', 'showcase'],
     },
     {
       name: '@poc/events',
@@ -157,30 +156,30 @@ export class OverviewComponent {
       description: 'Central feature flag registry. Edit one value → all apps and services pick up the change. No environment variables, no per-team sync.',
       color: '#fc8181',
       files: ['flags.ts', 'utils.ts'],
-      usedBy: ['showcase', 'team-angular', 'team-react', 'user-service', 'notification-service', 'api-gateway'],
+      usedBy: ['showcase', 'team-angular', 'user-portal', 'user-service', 'notification-service', 'api-gateway'],
     },
     {
       name: '@poc/api-client',
-      description: 'Typed HTTP client shared by both frontend apps. No duplicated fetch logic, no type assertions — return types come directly from @poc/types.',
+      description: 'Typed HTTP client shared by both Angular portal apps. No duplicated fetch logic, no type assertions — return types come directly from @poc/types.',
       color: '#b794f4',
       files: ['base.client.ts', 'user.client.ts', 'order.client.ts', 'notification.client.ts'],
-      usedBy: ['team-react', 'team-angular', 'showcase'],
+      usedBy: ['user-portal', 'team-angular', 'showcase'],
     },
     {
       name: '@poc/ui-components',
-      description: 'Shared UI package with a cross-framework Web Component button plus Angular standalone components (Card, Badge, StatusIndicator).',
+      description: 'Shared UI package with Angular standalone components and shared custom elements for cross-app consistency.',
       color: '#76e4f7',
-      files: ['button.shared.ts', 'button.react.tsx', 'card.component.ts', 'badge.component.ts', 'status-indicator.component.ts'],
-      usedBy: ['team-angular', 'showcase'],
+      files: ['button.shared.ts', 'card.component.ts', 'badge.component.ts', 'status-indicator.component.ts'],
+      usedBy: ['team-angular', 'user-portal', 'showcase'],
     },
   ];
 
   benefits = [
-    { icon: '🔒', title: 'Type Safety Across Boundaries', desc: 'A single `User` interface is used by React forms, Angular tables, and Express controllers. Shape mismatch = compile error.' },
-    { icon: '⚡', title: 'NX Affected Builds', desc: 'Change `@poc/validators` → NX rebuilds only user-service, team-react, and team-angular. The rest are untouched.' },
+    { icon: '🔒', title: 'Type Safety Across Boundaries', desc: 'A single `User` interface is used by user portal forms, admin portal tables, and Express controllers. Shape mismatch = compile error.' },
+    { icon: '⚡', title: 'NX Affected Builds', desc: 'Change `@poc/validators` → NX rebuilds only user-service, user-portal, and team-angular. The rest are untouched.' },
     { icon: '🧩', title: 'Zero Duplication', desc: 'Validation rules, API call logic, and feature flag checks are written once and imported everywhere.' },
     { icon: '🚩', title: 'Coordinated Feature Rollouts', desc: 'Toggle NOTIFY_SMS in one file. Every service and every app reacts — no PR in 4 different repos.' },
     { icon: '🗂', title: 'One CI Pipeline', desc: 'A single `npm run build` builds everything in dependency order. NX caches unchanged projects.' },
-    { icon: '👥', title: 'Team Autonomy', desc: 'Module boundary rules prevent React team from depending on Angular internals. Each team owns their boundary.' },
+    { icon: '👥', title: 'Team Autonomy', desc: 'Module boundary rules prevent app-to-app coupling. Each team owns its portal boundaries.' },
   ];
 }

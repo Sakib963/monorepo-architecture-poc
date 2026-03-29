@@ -23,7 +23,7 @@ export default function App() {
   return (
     <div className={`app${dark ? ' dark' : ''}`}>
       <header className="app-header">
-        <h1>Team React App</h1>
+        <h1>User Portal</h1>
         <span className="badge">React 18 + Vite</span>
         {dark && <span className="badge badge-dark">🌙 Dark Mode ON</span>}
         {maintenance && <span className="badge badge-maint">🔧 Maintenance</span>}

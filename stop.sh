@@ -26,11 +26,14 @@ fi
 
 # Fallback: kill anything still on our ports
 for port in 3000 3001 3002 4200 4201 4202; do
-  pid=$(lsof -ti tcp:"$port" 2>/dev/null || true)
-  if [[ -n "$pid" ]]; then
-    kill -9 "$pid" 2>/dev/null || true
-    echo -e "${YELLOW}[killed]${RESET}  port $port (PID $pid)"
-    (( stopped++ ))
+  pids=$(lsof -ti tcp:"$port" 2>/dev/null || true)
+  if [[ -n "$pids" ]]; then
+    while IFS= read -r pid; do
+      [[ -n "$pid" ]] || continue
+      kill -9 "$pid" 2>/dev/null || true
+      echo -e "${YELLOW}[killed]${RESET}  port $port (PID $pid)"
+      (( stopped++ ))
+    done <<< "$pids"
   fi
 done
 

@@ -41,7 +41,7 @@ interface NavItem {
 
         <div class="sidebar-footer">
           <div class="footer-links">
-            <a href="http://localhost:4201" target="_blank">↗ team-react :4201</a>
+            <a href="http://localhost:4201" target="_blank">↗ user-portal :4201</a>
             <a href="http://localhost:4202" target="_blank">↗ team-angular :4202</a>
           </div>
         </div>
@@ -108,9 +108,13 @@ interface NavItem {
 export class AppComponent {
   navItems: NavItem[] = [
     { path: 'overview',   icon: '🗺',  label: 'Overview',       description: 'Architecture overview and package map' },
+    { path: 'ui-library', icon: '🧱',  label: 'UI Library',     description: 'Interactive showcase of shared UI components' },
+    { path: 'forms',      icon: '📝',  label: 'Forms',          description: 'Validator-driven forms with valid/invalid flows' },
+    { path: 'flags',      icon: '🚩',  label: 'Flags',          description: 'Feature-flag matrix and visibility outcomes' },
+    { path: 'api-scenarios', icon: '🔌', label: 'API Scenarios', description: 'Success/error/timeout/retry behavior demos' },
+
     { path: 'types',      icon: '📐',  label: 'Shared Types',   description: 'Single TypeScript source of truth for all apps and services' },
-    { path: 'validators', icon: '✅',  label: 'Shared Validators', description: 'Zod schemas running identically in browser and Node.js' },
-    { path: 'flags',      icon: '🚩',  label: 'Feature Flags',  description: 'Toggle features across all apps and services from one file' },
+    { path: 'validators', icon: '✅',  label: 'Validators',      description: 'Zod schemas running identically in browser and Node.js' },
     { path: 'events',     icon: '⚡',  label: 'Event Contracts', description: 'Typed event shapes that catch cross-service shape mismatches at compile time' },
     { path: 'graph',      icon: '📊',  label: 'Dependency Graph', description: 'NX affected builds — only rebuild what changed' },
   ];

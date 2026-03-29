@@ -1,7 +1,7 @@
 {
   "name": "@poc/api-client",
   "version": "1.0.0",
-  "description": "Typed HTTP client for all POC services — both React and Angular apps import the same client, no duplicated fetch logic",
+  "description": "Typed HTTP client for all POC services — both Angular portal apps import the same client, no duplicated fetch logic",
   "private": true,
   "main": "./src/index.ts",
   "scripts": {

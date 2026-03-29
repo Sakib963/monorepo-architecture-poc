@@ -1,6 +1,6 @@
 # Monorepo Architecture POC
 
-A self-contained proof-of-concept demonstrating **NX 19** monorepo architecture with shared packages across **Angular**, **React**, and **Express** workspaces.
+A self-contained proof-of-concept demonstrating **NX 19** monorepo architecture with shared packages across **Angular** and **Express** workspaces.
 
 ---
 
@@ -10,8 +10,8 @@ A self-contained proof-of-concept demonstrating **NX 19** monorepo architecture 
 monorepo-architecture-poc/
 ├── apps/
 │   ├── showcase/         ← Angular 18 — interactive demo of all 7 packages (port 4200)
-│   ├── team-angular/     ← Angular 18 — admin app using @poc/ui-components (port 4202)
-│   └── team-react/       ← React 18 + Vite — product app with Zod validation (port 4201)
+│   ├── team-angular/     ← Angular 18 — admin portal using @poc/ui-components (port 4202)
+│   └── user-portal/      ← Angular 18 — user portal (port 4201)
 │
 ├── services/
 │   ├── api-gateway/      ← Express — single entry point, proxies all routes (port 3000)
@@ -40,7 +40,28 @@ monorepo-architecture-poc/
 npm install
 ```
 
-### 2. Start the backend services (3 separate terminals)
+### 2. Focused developer workflows (from repo root)
+
+```bash
+# User-portal developer (user UI + required services)
+npm run dev:user
+
+# Admin-portal developer (admin UI + required services)
+npm run dev:admin
+
+# Backend-only developer (services only)
+npm run dev:backend
+```
+
+### 3. Start individual frontends only (optional)
+
+```bash
+npm run dev:user:ui
+npm run dev:admin:ui
+npm run dev:showcase
+```
+
+### 4. Start backend services manually (3 separate terminals)
 
 ```bash
 # Terminal 1 — User Service (port 3001)
@@ -56,23 +77,7 @@ cd services/api-gateway
 npx ts-node-dev --respawn --transpile-only src/main.ts
 ```
 
-### 3. Start the frontend apps (2 more terminals)
-
-```bash
-# Terminal 4 — Showcase (port 4200)
-cd apps/showcase
-npx ng serve --port 4200
-
-# Terminal 5 — Team React (port 4201)
-cd apps/team-react
-npx vite --port 4201
-
-# Terminal 6 — Team Angular (port 4202)
-cd apps/team-angular
-npx ng serve --port 4202
-```
-
-### 4. Verify services
+### 5. Verify services
 
 ```bash
 curl http://localhost:3000/health     # API Gateway
@@ -111,8 +116,8 @@ curl http://localhost:3000/flags      # Feature flags snapshot
 | App | Port | Stack | Demo Focus |
 |-----|------|-------|-----------|
 | `showcase` | 4200 | Angular 18 | Interactive explorer for all 7 packages — types, validators, flags, events, graph |
-| `team-react` | 4201 | React 18 + Vite | CreateUser form with live Zod validation, UserList, FeatureFlags panel |
-| `team-angular` | 4202 | Angular 18 | Admin dashboard — uses `@poc/ui-components`, typed API client, flag gating |
+| `user-portal` | 4201 | Angular 18 | User dashboard/actions — profile, accounts, transfers, notifications |
+| `team-angular` | 4202 | Angular 18 | Admin portal — users, approvals, flags, audit logs |
 
 ---
 
@@ -120,8 +125,9 @@ curl http://localhost:3000/flags      # Feature flags snapshot
 
 ```bash
 # Run a specific app
-npx nx serve showcase
-npx nx serve team-react
+npx nx serve @poc/showcase
+npx nx serve user-portal
+npx nx serve @poc/team-angular
 
 # Build everything
 npx nx run-many --target=build --all

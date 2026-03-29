@@ -1,7 +1,7 @@
 {
   "name": "@poc/ui-components",
   "version": "1.0.0",
-  "description": "Shared UI components package with cross-framework Web Components and Angular/React entrypoints",
+  "description": "Shared UI components package with Angular components and shared custom elements",
   "private": true,
   "main": "./src/index.ts",
   "scripts": {

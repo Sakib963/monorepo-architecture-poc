@@ -1,4 +1,5 @@
 import { ZodSchema, ZodError } from 'zod';
+import type { ActionResult } from '@poc/types';
 
 export interface ValidationResult<T> {
   success: boolean;
@@ -50,4 +51,19 @@ export function getFieldError(result: ValidationResult<unknown>, field: string):
  */
 export function hasFieldError(result: ValidationResult<unknown>, field: string): boolean {
   return result.errors.some(e => e.field === field);
+}
+
+/**
+ * Convert validation errors into the shared action error envelope.
+ */
+export function validationErrorsToActionResult(
+  result: ValidationResult<unknown>,
+  traceId: string,
+): ActionResult<never> {
+  return {
+    ok: false,
+    code: 'VALIDATION_ERROR',
+    message: result.errors.map((error) => `${error.field}: ${error.message}`).join(' | '),
+    traceId,
+  };
 }

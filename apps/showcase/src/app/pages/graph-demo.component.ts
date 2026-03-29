@@ -180,7 +180,7 @@ export class GraphDemoComponent {
   ];
 
   apps: GraphNode[] = [
-    { id: 'team-react', type: 'app', label: 'team-react', deps: ['types', 'validators', 'api-client', 'feature-flags'], description: 'React 18 + Vite product app. Uses shared validators for form validation, api-client for typed HTTP calls, feature-flags to gate UI features.' },
+    { id: 'user-portal', type: 'app', label: 'user-portal', deps: ['types', 'validators', 'api-client', 'feature-flags', 'ui-components'], description: 'Angular user portal. Uses shared validators for action inputs, api-client for typed HTTP calls, and feature-flags for route/action gating.' },
     { id: 'team-angular', type: 'app', label: 'team-angular', deps: ['types', 'api-client', 'feature-flags', 'ui-components'], description: 'Angular 17 admin app. Uses @poc/ui-components for consistent UI, api-client for typed HTTP, feature-flags for route gating.' },
     { id: 'showcase', type: 'app', label: 'showcase', deps: ['types', 'validators', 'events', 'feature-flags', 'api-client', 'ui-components'], description: 'You are here. Imports ALL shared packages to demonstrate each one live.' },
   ];
@@ -193,22 +193,22 @@ export class GraphDemoComponent {
   scenarios = [
     {
       changed: 'packages/validators/src/schemas.ts',
-      affected: ['validators', 'team-react', 'team-angular', 'user-service', 'showcase'],
+      affected: ['validators', 'user-portal', 'team-angular', 'user-service', 'showcase'],
       skipped: ['types', 'events', 'feature-flags', 'api-client', 'ui-components', 'notification-service', 'api-gateway'],
     },
     {
       changed: 'packages/feature-flags/src/flags.ts',
-      affected: ['feature-flags', 'team-react', 'team-angular', 'showcase', 'user-service', 'notification-service', 'api-gateway'],
+      affected: ['feature-flags', 'user-portal', 'team-angular', 'showcase', 'user-service', 'notification-service', 'api-gateway'],
       skipped: ['types', 'validators', 'events', 'api-client', 'ui-components'],
     },
     {
       changed: 'services/user-service/src/user.routes.ts',
       affected: ['user-service'],
-      skipped: ['types', 'validators', 'events', 'feature-flags', 'api-client', 'ui-components', 'notification-service', 'api-gateway', 'team-react', 'team-angular', 'showcase'],
+      skipped: ['types', 'validators', 'events', 'feature-flags', 'api-client', 'ui-components', 'notification-service', 'api-gateway', 'user-portal', 'team-angular', 'showcase'],
     },
     {
       changed: 'packages/types/src/user.types.ts',
-      affected: ['types', 'validators', 'api-client', 'events', 'user-service', 'notification-service', 'team-react', 'team-angular', 'showcase'],
+      affected: ['types', 'validators', 'api-client', 'events', 'user-service', 'notification-service', 'user-portal', 'team-angular', 'showcase'],
       skipped: ['feature-flags', 'ui-components', 'config', 'api-gateway'],
     },
   ];
@@ -218,6 +218,6 @@ export class GraphDemoComponent {
     { cmd: 'npx nx affected --target=build --base=main', desc: 'Build only projects affected by changes since main branch' },
     { cmd: 'npx nx affected --target=lint --base=main', desc: 'Lint only affected projects' },
     { cmd: 'npx nx run-many --target=build --all', desc: 'Build all projects in dependency order' },
-    { cmd: 'npx nx show project team-react', desc: 'Show full project config (executors, targets, tags)' },
+    { cmd: 'npx nx show project user-portal', desc: 'Show full project config (executors, targets, tags)' },
   ];
 }
