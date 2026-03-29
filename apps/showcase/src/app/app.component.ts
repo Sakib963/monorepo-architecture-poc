@@ -33,7 +33,7 @@ interface NavItem {
               class="nav-item"
               [title]="item.description"
             >
-              <span class="nav-icon">{{ item.icon }}</span>
+              <span class="iconify nav-icon" [attr.data-icon]="item.icon" aria-hidden="true"></span>
               <span class="nav-label">{{ item.label }}</span>
             </a>
           </li>
@@ -95,7 +95,7 @@ interface NavItem {
       border-left-color: #2563eb;
       background: linear-gradient(90deg, rgba(59, 130, 246, 0.18) 0%, rgba(59, 130, 246, 0.08) 70%, rgba(59, 130, 246, 0) 100%);
     }
-    .nav-icon { font-size: 1rem; width: 1.25rem; text-align: center; }
+    .nav-icon { font-size: 1.05rem; width: 1.25rem; text-align: center; color: currentColor; }
     .nav-label {}
 
     .sidebar-footer {
@@ -123,12 +123,12 @@ interface NavItem {
 })
 export class AppComponent {
   navItems: NavItem[] = [
-    { path: 'overview', icon: '📋', label: 'Overview', description: 'What this discussion will cover' },
-    { path: 'monorepo', icon: '🧱', label: 'Monorepo', description: 'What monorepo means with architecture diagram' },
-    { path: 'pros-cons', icon: '⚖️', label: 'Pros & Cons', description: 'Balanced advantages and trade-offs' },
-    { path: 'case-effective', icon: '✅', label: 'Our Case: Effective', description: 'Problems in our case and how monorepo helps' },
-    { path: 'case-ineffective', icon: '⚠️', label: 'Our Case: Ineffective', description: 'Where monorepo can fail in our context' },
-    { path: 'common-questions', icon: '❓', label: 'Common Questions', description: 'Build, deploy, permissions, and workflow Q&A' },
-    { path: 'conclusion', icon: '🏁', label: 'Conclusion', description: 'Decision summary and adoption conditions' },
+    { path: 'overview', icon: 'mdi:view-dashboard-outline', label: 'Overview', description: 'What this discussion will cover' },
+    { path: 'monorepo', icon: 'mdi:source-repository', label: 'Monorepo', description: 'Concept, examples, and when it works' },
+    { path: 'pros-cons', icon: 'mdi:scale-balance', label: 'Pros & Cons', description: 'Development scenario trade-offs' },
+    { path: 'poc', icon: 'mdi:check-decagram-outline', label: 'Our POC', description: 'What we implemented and learned' },
+    { path: 'common-questions', icon: 'mdi:help-circle-outline', label: 'Common Questions', description: 'Practical operational Q&A' },
+    { path: 'why-polyrepo', icon: 'mdi:source-branch-remove', label: 'Why Polyrepo?', description: 'When monorepo is not the right choice' },
+    { path: 'conclusion', icon: 'mdi:flag-checkered', label: 'Conclusion', description: 'Decision framework and next steps' },
   ];
 }

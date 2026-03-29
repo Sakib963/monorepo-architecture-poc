@@ -1,116 +1,134 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface TopicCard {
-  title: string;
-  summary: string;
-  icon: string;
-  outcome: string;
-}
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-start-here',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   template: `
     <div class="page">
       <header class="hero">
-        <p class="eyebrow">Overview</p>
-        <h1>Monorepo POC — Architecture Walkthrough</h1>
+        <p class="eyebrow">Monorepo POC</p>
+        <h1>Understanding Monorepo Architecture</h1>
         <p class="subtitle">
-          This walkthrough is designed for developers who are new to multi-application repositories.
-          It covers architecture, trade-offs, operational workflow, and evidence from our banking portal POC.
+          Learn whether monorepo is right for your engineering team. We'll explore the concept,
+          trade-offs, practical scenarios, and showcase a working POC implementation.
         </p>
-        <div class="hero-note">
-          <span>Learning objective:</span>
-          understand how monorepo works in practice, when it is effective, and which governance controls are mandatory.
-        </div>
       </header>
 
       <section class="section">
-        <h2>What we will discuss</h2>
-        <div class="topic-grid">
-          <article class="topic-card" *ngFor="let item of topics">
-            <p class="topic-icon">{{ item.icon }}</p>
-            <h3>{{ item.title }}</h3>
-            <p>{{ item.summary }}</p>
-            <p class="topic-outcome">Outcome: {{ item.outcome }}</p>
+        <h2><span class="iconify" data-icon="mdi:layers-outline"></span> Choose your path</h2>
+        <div class="journey-cards">
+          <article class="journey-card clickable" routerLink="/monorepo">
+            <div class="card-header">
+              <span class="iconify card-icon" data-icon="mdi:source-repository"></span>
+              <h3>1. Monorepo Concept</h3>
+            </div>
+            <p class="card-desc">What monorepo is, real-world examples, and when it's effective.</p>
+            <p class="card-cta">→ Learn the fundamentals</p>
+          </article>
+
+          <article class="journey-card clickable" routerLink="/pros-cons">
+            <div class="card-header">
+              <span class="iconify card-icon" data-icon="mdi:scale-balance"></span>
+              <h3>2. Pros & Cons</h3>
+            </div>
+            <p class="card-desc">Real development scenarios: team dynamics, deployment speed, visibility.</p>
+            <p class="card-cta">→ Explore trade-offs</p>
+          </article>
+
+          <article class="journey-card clickable" routerLink="/poc">
+            <div class="card-header">
+              <span class="iconify card-icon" data-icon="mdi:check-decagram-outline"></span>
+              <h3>3. Our POC</h3>
+            </div>
+            <p class="card-desc">Concrete example: what we built, what worked, and what we learned.</p>
+            <p class="card-cta">→ See the implementation</p>
+          </article>
+
+          <article class="journey-card clickable" routerLink="/common-questions">
+            <div class="card-header">
+              <span class="iconify card-icon" data-icon="mdi:help-circle-outline"></span>
+              <h3>4. Common Questions</h3>
+            </div>
+            <p class="card-desc">Practical answers: building, testing, deployment, and access control.</p>
+            <p class="card-cta">→ Get quick answers</p>
+          </article>
+
+          <article class="journey-card clickable" routerLink="/why-polyrepo">
+            <div class="card-header">
+              <span class="iconify card-icon" data-icon="mdi:source-branch-remove"></span>
+              <h3>5. Why Polyrepo?</h3>
+            </div>
+            <p class="card-desc">Not all teams need monorepo. When multiple repos are the better choice.</p>
+            <p class="card-cta">→ Understand alternatives</p>
+          </article>
+
+          <article class="journey-card clickable" routerLink="/conclusion">
+            <div class="card-header">
+              <span class="iconify card-icon" data-icon="mdi:flag-checkered"></span>
+              <h3>6. Conclusion</h3>
+            </div>
+            <p class="card-desc">Decision framework: is monorepo right for your team right now?</p>
+            <p class="card-cta">→ Make an informed decision</p>
           </article>
         </div>
       </section>
 
-      <section class="section">
-        <h2>POC Snapshot</h2>
-        <div class="metrics">
-          <article class="metric-card" *ngFor="let m of metrics">
-            <p class="metric-value">{{ m.value }}</p>
-            <p class="metric-label">{{ m.label }}</p>
-            <p class="metric-note">{{ m.note }}</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>How to consume this presentation</h2>
-        <div class="steps">
-          <article class="step">1. Start with architecture and boundaries on the Monorepo page.</article>
-          <article class="step">2. Review benefits and risks together on the Pros & Cons page.</article>
-          <article class="step">3. Validate theory against our real case (effective and ineffective scenarios).</article>
-          <article class="step">4. Use the Q&A page for day-to-day build, deploy, and permission decisions.</article>
-        </div>
+      <section class="section info-block">
+        <h2><span class="iconify" data-icon="mdi:lightbulb-on-outline"></span> What you'll understand</h2>
+        <ul class="insight-list">
+          <li><strong>The concept:</strong> What monorepo is and how it differs from polyrepo.</li>
+          <li><strong>Real trade-offs:</strong> Speed, complexity, team dynamics, and governance trade-offs in development.</li>
+          <li><strong>Practical evidence:</strong> A real POC implementation showing what's possible.</li>
+          <li><strong>Decision criteria:</strong> How to evaluate whether monorepo fits your organization.</li>
+        </ul>
       </section>
     </div>
   `,
   styles: [`
-    .page { padding: 2rem; max-width: 1240px; margin: 0 auto; }
-    .hero { margin-bottom: 1.5rem; }
-    .eyebrow { font-size: 0.8rem; text-transform: uppercase; color: #2563eb; letter-spacing: 0.08em; margin-bottom: 0.45rem; }
-    h1 { font-size: 2rem; color: #0f172a; margin-bottom: 0.7rem; }
-    .subtitle { color: #334155; line-height: 1.65; max-width: 820px; }
-    .hero-note {
-      margin-top: 0.9rem;
-      max-width: 880px;
-      background: linear-gradient(135deg, #eef4ff 0%, #ffffff 70%);
-      border: 1px solid #cfdcf7;
-      border-radius: 0.75rem;
-      padding: 0.75rem 0.85rem;
-      color: #334155;
-      font-size: 0.82rem;
-      line-height: 1.5;
+    :host { display: block; }
+    .page { padding: 2rem 1.5rem; max-width: 1440px; margin: 0 auto; }
+    .hero { margin-bottom: 1rem; padding: 1.5rem; border-radius: 1rem; border: 1px solid #d7e3f7; background: linear-gradient(135deg, #eef4ff 0%, #ffffff 70%); }
+    .eyebrow { font-size: 0.8rem; text-transform: uppercase; color: #2563eb; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    h1 { font-size: 2.1rem; color: #0f172a; margin-bottom: 0.75rem; }
+    .subtitle { color: #334155; line-height: 1.7; max-width: 920px; font-size: 0.95rem; }
+    
+    .section { margin-top: 2rem; }
+    h2 { display: flex; align-items: center; gap: 0.5rem; font-size: 1rem; color: #0f172a; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
+    
+    .journey-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+    .journey-card { 
+      background: #ffffff; 
+      border: 1.5px solid #dbe3ef; 
+      border-radius: 0.9rem; 
+      padding: 1.3rem; 
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      transition: all 0.2s ease;
     }
-    .hero-note span { color: #1d4ed8; font-weight: 700; }
-    .section { margin-top: 1.6rem; }
-    h2 { font-size: 0.95rem; color: #1e293b; margin-bottom: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
-
-    .topic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.8rem; }
-    .topic-card { background: #ffffff; border: 1px solid #dbe3ef; border-radius: 0.75rem; padding: 0.95rem; box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04); }
-    .topic-icon { font-size: 1.2rem; margin-bottom: 0.35rem; }
-    .topic-card h3 { color: #0f172a; font-size: 0.9rem; margin-bottom: 0.3rem; }
-    .topic-card p { color: #334155; font-size: 0.8rem; line-height: 1.5; }
-    .topic-outcome { margin-top: 0.5rem; color: #1d4ed8 !important; font-size: 0.75rem !important; font-weight: 600; }
-
-    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem; }
-    .metric-card { background: #ffffff; border: 1px solid #dbe3ef; border-radius: 0.75rem; padding: 0.95rem; }
-    .metric-value { color: #2563eb; font-size: 1.35rem; font-weight: 800; }
-    .metric-label { color: #0f172a; font-size: 0.83rem; font-weight: 700; margin-top: 0.15rem; }
-    .metric-note { color: #475569; font-size: 0.76rem; line-height: 1.45; margin-top: 0.3rem; }
-
-    .steps { display: grid; gap: 0.65rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-    .step { background: #ffffff; border: 1px dashed #c6d4ef; border-radius: 0.65rem; padding: 0.75rem; color: #334155; font-size: 0.8rem; line-height: 1.45; }
+    .journey-card.clickable { cursor: pointer; }
+    .journey-card.clickable:hover { 
+      border-color: #2563eb; 
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.15);
+      transform: translateY(-2px);
+    }
+    .card-header { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.8rem; }
+    .card-icon { font-size: 1.8rem; color: #2563eb; flex-shrink: 0; }
+    h3 { color: #0f172a; font-size: 1rem; margin: 0; font-weight: 700; }
+    .card-desc { color: #334155; font-size: 0.85rem; line-height: 1.6; margin: 0.6rem 0 0 0; }
+    .card-cta { color: #2563eb; font-size: 0.8rem; font-weight: 600; margin: 0.8rem 0 0 0; }
+    
+    .info-block { background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%); border: 1px solid #cfe0ff; border-radius: 1rem; padding: 1.5rem; }
+    .insight-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.8rem; }
+    .insight-list li { color: #334155; font-size: 0.9rem; line-height: 1.7; }
+    .insight-list strong { color: #0f172a; font-weight: 700; }
+    
+    @media (max-width: 1024px) {
+      .page { padding: 1.5rem; }
+      h1 { font-size: 1.8rem; }
+      .journey-cards { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.8rem; }
+    }
   `],
 })
-export class StartHereComponent {
-  topics: TopicCard[] = [
-    { title: 'Monorepo Model', summary: 'Definition, structure, and dependency boundaries.', icon: '01', outcome: 'Understand the architecture and vocabulary.' },
-    { title: 'Benefits', summary: 'Where delivery speed and consistency improve.', icon: '02', outcome: 'Identify concrete engineering advantages.' },
-    { title: 'Risks', summary: 'Blast radius, governance overhead, and access concerns.', icon: '03', outcome: 'Recognize failure modes and controls.' },
-    { title: 'POC Evidence', summary: 'What worked, what failed, and why.', icon: '04', outcome: 'Map architecture decisions to real outcomes.' },
-  ];
-
-  metrics = [
-    { label: 'Portal Apps', value: '3', note: 'User, Admin, and Showcase applications in one workspace.' },
-    { label: 'Backend Services', value: '3', note: 'Gateway plus domain services for user and notification flows.' },
-    { label: 'Shared Packages', value: '7', note: 'Types, validators, API client, flags, events, UI, and config.' },
-    { label: 'Main Decision', value: 'Governance', note: 'Monorepo success depends more on discipline than tools.' },
-  ];
-}
+export class StartHereComponent {}
