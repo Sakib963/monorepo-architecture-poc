@@ -1,15 +1,13 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '',           redirectTo: 'overview',   pathMatch: 'full' },
-  { path: 'overview',   loadComponent: () => import('./pages/overview.component').then(m => m.OverviewComponent) },
-  { path: 'ui-library', loadComponent: () => import('./pages/ui-library-demo.component').then(m => m.UiLibraryDemoComponent) },
-  { path: 'forms',      loadComponent: () => import('./pages/validators-demo.component').then(m => m.ValidatorsDemoComponent) },
-  { path: 'api-scenarios', loadComponent: () => import('./pages/api-scenarios-demo.component').then(m => m.ApiScenariosDemoComponent) },
-  { path: 'flags',      loadComponent: () => import('./pages/flags-demo.component').then(m => m.FlagsDemoComponent) },
-
-  { path: 'types',      loadComponent: () => import('./pages/types-demo.component').then(m => m.TypesDemoComponent) },
-  { path: 'validators', loadComponent: () => import('./pages/validators-demo.component').then(m => m.ValidatorsDemoComponent) },
-  { path: 'events',     loadComponent: () => import('./pages/events-demo.component').then(m => m.EventsDemoComponent) },
-  { path: 'graph',      loadComponent: () => import('./pages/graph-demo.component').then(m => m.GraphDemoComponent) },
+  { path: '', redirectTo: 'overview', pathMatch: 'full' },
+  { path: 'overview', loadComponent: () => import('./pages/start-here.component').then(m => m.StartHereComponent) },
+  { path: 'monorepo', loadComponent: () => import('./pages/why-monorepo.component').then(m => m.WhyMonorepoComponent) },
+  { path: 'pros-cons', loadComponent: () => import('./pages/trade-offs.component').then(m => m.TradeOffsComponent) },
+  { path: 'case-effective', loadComponent: () => import('./pages/repo-proof.component').then(m => m.RepoProofComponent) },
+  { path: 'case-ineffective', loadComponent: () => import('./pages/not-monorepo.component').then(m => m.NotMonorepoComponent) },
+  { path: 'common-questions', loadComponent: () => import('./pages/implementation-walkthrough.component').then(m => m.ImplementationWalkthroughComponent) },
+  { path: 'conclusion', loadComponent: () => import('./pages/conclusion.component').then(m => m.ConclusionComponent) },
+  { path: '**', redirectTo: 'overview' },
 ];

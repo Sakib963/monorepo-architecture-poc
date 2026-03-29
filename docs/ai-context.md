@@ -132,10 +132,12 @@ Minimum pages:
 
 ### Showcase App (Angular)
 Minimum pages:
-1. `/ui-library` - shared UI component playground
-2. `/forms` - shared validators + forms demonstration
-3. `/flags` - feature flag behavior matrix
-4. `/api-scenarios` - API client usage and error states
+1. `/start-here` - meeting entry point and architecture context
+2. `/not-monorepo` - anti-patterns and false-monorepo signals
+3. `/why-monorepo` - rationale and expected outcomes
+4. `/trade-offs` - operational costs and mitigation approach
+5. `/repo-proof` - concrete evidence from this repository
+6. `/implementation-walkthrough` - onboarding and execution runbook
 
 ### Shared UI Usage Rule
 - Every page must use at least one shared element from `@poc/ui-components`.

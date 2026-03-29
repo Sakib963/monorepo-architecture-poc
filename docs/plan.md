@@ -242,6 +242,13 @@ Required routes: `/ui-library`, `/forms`, `/flags`, `/api-scenarios`
 - [x] Add links from showcase home to all proof routes
 - [x] Validate showcase reflects latest shared package behavior
 
+### Phase 8.5 - Showcase Narrative Replacement (Meeting-first)
+
+- [x] Replace old demo route content with monorepo education flow
+- [x] Introduce routes: `/start-here`, `/not-monorepo`, `/why-monorepo`, `/trade-offs`, `/repo-proof`, `/implementation-walkthrough`
+- [x] Rewire showcase sidebar navigation and default landing route to `start-here`
+- [x] Validate showcase lint/build after route replacement (`nx lint @poc/showcase`, `nx build @poc/showcase`)
+
 ---
 
 ## Phase 9 - Services and Realistic Data Behaviors
