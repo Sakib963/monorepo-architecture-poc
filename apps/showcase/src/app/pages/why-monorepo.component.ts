@@ -27,8 +27,7 @@ import { CommonModule } from '@angular/common';
           </p>
           <div class="example-visual">
             <div class="example-item">
-              <strong>Polyrepo</strong><br/>
-              user-service repo<br/>notification-service repo<br/>ui-library repo<br/>types repo
+              <strong>Polyrepo</strong><br/>user-service repo<br/>notification-service repo<br/>ui-library repo<br/>types repo
             </div>
             <span class="arrow-icon">
               <span class="iconify" data-icon="mdi:arrow-right-bold"></span>
@@ -144,7 +143,13 @@ import { CommonModule } from '@angular/common';
     .content-block { background: #ffffff; border: 1px solid #dbe3ef; border-radius: 0.9rem; padding: 1.5rem; }
     .content-block p { color: #334155; font-size: 0.95rem; line-height: 1.8; margin: 0 0 1.2rem 0; }
     
-    .example-visual { display: flex; align-items: center; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+    .example-visual {
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) auto minmax(240px, 1fr);
+      align-items: start;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
     .example-item {
       background: #f1f5fb;
       border: 1px solid #dbe3ef;
@@ -158,7 +163,7 @@ import { CommonModule } from '@angular/common';
       min-width: 180px;
     }
     .example-item strong { color: #0f172a; font-weight: 700; display: block; margin-bottom: 0.5rem; }
-    .arrow-icon { color: #2563eb; font-size: 1.5rem; }
+    .arrow-icon { color: #2563eb; font-size: 1.5rem; align-self: center; }
     
     .examples-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
     .example-card { background: #ffffff; border: 1px solid #dbe3ef; border-radius: 0.9rem; padding: 1.3rem; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06); }
@@ -182,7 +187,14 @@ import { CommonModule } from '@angular/common';
     @media (max-width: 1024px) {
       .page { padding: 1.5rem; }
       h1 { font-size: 1.7rem; }
-      .example-visual { gap: 1rem; }
+      .example-visual {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+      .arrow-icon {
+        justify-self: center;
+        transform: rotate(90deg);
+      }
       .effectiveness-grid, .ineffectiveness-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
     }
   `],
